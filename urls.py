@@ -1,92 +1,13 @@
-from django.urls import path
-
-from .views import (
-    register,
-    user_list,
-    my_profile,
-    salon_list,
-    service_list,
-    staff_list,
-    availability_list,
-    appointment_list,
-    my_appointments,
-    cancel_appointment,
-    review_list,
-    owner_dashboard,
-    update_appointment_status,
-    admin_dashboard,
-)
+from django.contrib import admin
+from django.urls import path, include
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
 
-    path(
-        'register/',
-        register
-    ),
+    path('api/', include('accounts.urls')),
 
-    path(
-        'users/',
-        user_list
-    ),
-
-    path(
-        'my-profile/',
-        my_profile
-    ),
-
-    path(
-        'salons/',
-        salon_list
-    ),
-
-    path(
-        'services/',
-        service_list
-    ),
-
-    path(
-        'staff/',
-        staff_list
-    ),
-
-    path(
-        'availability/',
-        availability_list
-    ),
-
-    path(
-        'appointments/',
-        appointment_list
-    ),
-
-    path(
-        'my-appointments/',
-        my_appointments
-    ),
-
-    path(
-        'appointments/<int:appointment_id>/cancel/',
-        cancel_appointment
-    ),
-
-    path(
-        'appointments/<int:appointment_id>/status/',
-        update_appointment_status
-    ),
-
-    path(
-        'reviews/',
-        review_list
-    ),
-
-    path(
-        'owner-dashboard/',
-        owner_dashboard
-    ),
-
-    path(
-        'admin-dashboard/',
-        admin_dashboard
-    ),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
